@@ -42,7 +42,9 @@
     "already_checked": "Tuto část jsi již zkontroloval, nezkoušej to znovu",
     "target_check_engine": "Zkontrolovat motor",
     "make_certificate": "Udělat certifikát",
+    "certificate_made": "Certifikát byl úspěšně vytvořen",
     "passed": "Prošlo",
-    "failed": "Neprošlo z důvodu %s",
+    "failed": "Neprošlo z důvodu: %s",
+    "expire_fail": "-",
     "item_description": "MOT certifikát pro vozidlo s registrační značkou %s  \nVydáno: %s  \nDatum vypršení: %s  \nStav: %s"
 }

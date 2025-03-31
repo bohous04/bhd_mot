@@ -1,5 +1,10 @@
 local Bridge = exports["bhd_bridge"]:getBridge()
 
+Citizen.CreateThread(function()
+    Wait(5000)
+    Bridge = exports["bhd_bridge"]:getBridge()
+end)
+
 RegisterNetEvent("bhd_mot:server:make_certificate", function (data)
     local source = source
     local job = Bridge.GetJob(source).name
@@ -38,6 +43,9 @@ RegisterNetEvent("bhd_mot:server:make_certificate", function (data)
     end
 
     local expire = string.format("%02d-%02d-%04d", today.day, expireMonth, expireYear)
+    if data.illegalData then
+        expire = locale("expire_fail")
+    end
     Bridge.AddItem(source, Config.ItemName, 1, {
         description = locale("item_description", data.plate, issued, expire, status),
     })

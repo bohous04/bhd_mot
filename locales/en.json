@@ -42,7 +42,9 @@
     "already_checked": "You have already checked this part",
     "target_check_engine": "Check engine",
     "make_certificate": "Make certificate",
+    "certificate_made": "Certificate has been successfully created",
     "passed": "Passed",
-    "failed": "Failed for reason %s",
+    "failed": "Failed for reason: %s",
+    "expire_fail": "-",
     "item_description": "MOT Certification for vehicle with plate %s  \nIssued: %s  \nExpire date: %s  \nStatus: %s"
 }

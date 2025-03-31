@@ -2,13 +2,13 @@ lib.locale()
 Config = {
     Debug = false,
     TargetDistance = 5.0,
-    CheckTimes = {
-        horn = 5, -- in seconds
-        lights = 5,
-        neon = 5,
-        door = 15, -- in seconds
-        engine = 5,
-        tires = 5,
+    CheckTimes = { -- in seconds
+        horn = 10,
+        lights = 15,
+        neon = 15,
+        door = 10,
+        engine = 30,
+        tires = 20,
     },
     IllegalHorns = {
         [1] = true,  -- HORN_POLICE
@@ -110,43 +110,43 @@ Config = {
     Zones = {
         {
             name = "Bennys",
-            coords = vec3(-194.0822, -1327.2191, 31.3005),
-            size = vec3(7.0, 7.0, 6.0),
-			rotation = 0,
+            coords = vec3(-201.88, -1318.91, 31.0),
+            size = vec3(3.0, 7.1, 8.2),
+            rotation = 352.5,
             groups = {['bennys'] = 0},
         },
         {
             name = "East",
-            coords = vec3(894.53, -2114.67, 30.0),
-            size = vec3(36.0, 44.0, 7.0),
-			rotation = 85.0,
+            coords = vec3(902.97, -2103.13, 31.0),
+            size = vec3(6.0, 10.0, 7.0),
+            rotation = 355.0,
             groups = {['gcp'] = 0},
         },
         {
             name = "LSC",
-            coords = vec3(-328.57, -142.46, 39.0),
-            size = vec3(36.0, 53.0, 7.0),
+            coords = vec3(-313.0, -125.0, 39.0),
+            size = vec3(9.0, 5.0, 7.5),
             rotation = 340.0,
             groups = {['lsc'] = 0},
         },
         {
             name = "Under",
-            coords = vec3(731.0, -1077.0, 22.0),
-            size = vec3(15.0, 33.0, 7.0),
+            coords = vec3(727.62, -1067.37, 22.0),
+            size = vec3(7.0, 8.0, 8.0),
             rotation = 0.0,
             groups = {['under'] = 0},
         },
         {
             name = "Tuner",
-            coords = vec3(930.0, -966.0, 40.0),
-            size = vec3(54.0, 44.0, 7.0),
-            rotation = 8.0,
+            coords = vec3(954.19, -952.75, 39.0),
+            size = vec3(10.0, 5.0, 7.0),
+            rotation = 5.0,
             groups = {['tuner'] = 0},
         },
         {
             name = "paletotuner",
-            coords = vec3(160.29, 6377.72, 31.0),
-            size = vec3(33.0, 27.5, 7.0),
+            coords = vec3(146.4, 6381.64, 31.0),
+            size = vec3(8.0, 4.5, 7.0),
             rotation = 27.5,
             groups = {['paletotuner'] = 0},
         },

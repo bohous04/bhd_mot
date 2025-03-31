@@ -194,11 +194,14 @@ AddEventHandler("bhd_mot:client:horn", function (data)
 	end
 	curentMOTStatus[veh].horn = true
 	if Config.IllegalHorns[horn] then
-		curentMOTStatus[veh].illegalData = curentMOTStatus[veh].illegalData..locale("horn").." "
+		curentMOTStatus[veh].illegalData = curentMOTStatus[veh].illegalData..locale("horn")..", "
 		Notify(locale("horn_fail"), locale("notify_type_info"))
 	else
 		Notify(locale("horn_checked"), locale("notify_type_info"))
 	end
+	UpdateContext(veh)
+	Wait(100)
+	lib.showContext('mot')
 end)
 
 AddEventHandler("bhd_mot:client:lights", function (data)
@@ -226,13 +229,16 @@ AddEventHandler("bhd_mot:client:lights", function (data)
 	SetVehicleFullbeam(veh, false)
 	local color = GetVehicleXenonLightsColor(veh)
 	if not Config.AllowedHornsHeadLights[color] then
-		curentMOTStatus[veh].illegalData = curentMOTStatus[veh].illegalData..locale("lights").." "
+		curentMOTStatus[veh].illegalData = curentMOTStatus[veh].illegalData..locale("lights")..", "
 		Notify(locale("lights_fail"), locale("notify_type_info"))
 	else
 		Notify(locale("lights_checked"), locale("notify_type_info"))
 	end
 	curentMOTStatus[veh].lights = true
 	FreezeEntityPosition(veh, false)
+	UpdateContext(veh)
+	Wait(100)
+	lib.showContext('mot')
 end)
 
 AddEventHandler("bhd_mot:client:neon", function (data)
@@ -271,13 +277,16 @@ AddEventHandler("bhd_mot:client:neon", function (data)
 		end
 	end
 	if illegalPlacement and hasIllegalColor then
-		curentMOTStatus[veh].illegalData = curentMOTStatus[veh].illegalData..locale("neon").." "
+		curentMOTStatus[veh].illegalData = curentMOTStatus[veh].illegalData..locale("neon")..", "
 		Notify(locale("neon_fail"), locale("notify_type_info"))
 	else
 		Notify(locale("neon_checked"), locale("notify_type_info"))
 	end
 	curentMOTStatus[veh].neon = true
 	FreezeEntityPosition(veh, false)
+	UpdateContext(veh)
+	Wait(100)
+	lib.showContext('mot')
 end)
 
 AddEventHandler("bhd_mot:client:body", function(data)
@@ -338,7 +347,7 @@ AddEventHandler("bhd_mot:client:bodyCheck", function (data)
 			local bodyHealth = GetVehicleBodyHealth(veh)
 			curentMOTStatus[veh].body = true
 			if bodyHealth < Config.MinBodyHelthToPass then
-				curentMOTStatus[veh].illegalData = curentMOTStatus[veh].illegalData..locale("body").." "
+				curentMOTStatus[veh].illegalData = curentMOTStatus[veh].illegalData..locale("body")..", "
 				Notify(locale("body_fail"), locale("notify_type_info"))
 			else
 				Notify(locale("body_checked"), locale("notify_type_info"))
@@ -421,7 +430,7 @@ AddEventHandler("bhd_mot:client:engineCheck", function (data)
 		SetVehicleDoorShut(veh, 4, true)
 		curentMOTStatus[veh].engine = true
 		if engineHealth < Config.MinEngineHelthToPass then
-			curentMOTStatus[veh].illegalData = curentMOTStatus[veh].illegalData..locale("engine").." "
+			curentMOTStatus[veh].illegalData = curentMOTStatus[veh].illegalData..locale("engine")..", "
 			Notify(locale("engine_fail"), locale("notify_type_info"))
 		else
 			Notify(locale("engine_checked"), locale("notify_type_info"))
@@ -461,11 +470,14 @@ AddEventHandler("bhd_mot:client:tires", function (data)
 		end
 	end
 	if illegalTires then
-		curentMOTStatus[veh].illegalData = curentMOTStatus[veh].illegalData..locale("tires").." "
+		curentMOTStatus[veh].illegalData = curentMOTStatus[veh].illegalData..locale("tires")..", "
 		Notify(locale("tires_fail"), locale("notify_type_info"))
 	else
 		Notify(locale("tires_checked"), locale("notify_type_info"))
 	end
 	curentMOTStatus[veh].tires = true
 	FreezeEntityPosition(veh, false)
+	UpdateContext(veh)
+	Wait(100)
+	lib.showContext('mot')
 end)
