@@ -256,7 +256,6 @@ AddEventHandler("bhd_mot:client:neon", function (data)
 		if Config.Neon.CheckPositions[i] then
 			illegalPlacement = true
 		end
-		SetVehicleNeonLightEnabled(veh, i, true)
 	end
 	lib.progressCircle({
 		duration = Config.CheckTimes.neon * 1000,
