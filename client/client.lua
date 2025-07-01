@@ -253,7 +253,7 @@ AddEventHandler("bhd_mot:client:neon", function (data)
 	FreezeEntityPosition(veh, true)
 	local illegalPlacement = false
 	for i = 0, 3 do
-		if Config.Neon.CheckPositions[i] then
+		if Config.Neon.CheckPositions[i] and IsVehicleNeonLightEnabled(veh, i) then
 			illegalPlacement = true
 		end
 	end
@@ -297,19 +297,55 @@ AddEventHandler("bhd_mot:client:body", function(data)
     if curentMOTStatus[veh].body then
         return
     end
-	Bridge.AddGlobalVehicle({
-		{
-			name = 'bhd_mot_body_check',
-			icon = 'fa-solid fa-clipboard-question',
-			label = locale('target_check_door'),
-			bones = { "door_dside_f", "door_pside_f", "door_dside_r", "door_pside_r", "boot"},
-			distance = Config.TargetDistance,
-			canInteract = function(entity, distance, coords, name)
-				return isInspetingBody 
-			end,
-			event = "bhd_mot:client:bodyCheck",
-		},
-	})
+	local bones = { "door_dside_f", "door_pside_f", "door_dside_r", "door_pside_r", "boot"}
+	if GetClosestBone(veh, bones) then
+
+		Bridge.AddGlobalVehicle({
+			{
+				name = 'bhd_mot_body_check',
+				icon = 'fa-solid fa-clipboard-question',
+				label = locale('target_check_door'),
+				bones = bones,
+				distance = Config.TargetDistance,
+				canInteract = function(entity, distance, coords, name)
+					return isInspetingBody 
+				end,
+				event = "bhd_mot:client:bodyCheck",
+			},
+		})
+	else
+		if lib.progressCircle({
+			duration = Config.CheckTimes.door * 1000 * 4,
+			position = 'bottom',
+			useWhileDead = false,
+			canCancel = true,
+			disable = {
+				car = true,
+				move = true,
+			},
+			anim = {
+				dict = 'mini@repair',
+				clip = 'fixing_a_ped'
+			},
+		}) then 
+			Notify(locale("bodypart_checked", 0))
+			if curentMOTStatus[veh].numOfBodyChecks == 0 then
+				local bodyHealth = GetVehicleBodyHealth(veh)
+				curentMOTStatus[veh].body = true
+				if bodyHealth < Config.MinBodyHelthToPass then
+					curentMOTStatus[veh].illegalData = curentMOTStatus[veh].illegalData..locale("body")..", "
+					Notify(locale("body_fail"), locale("notify_type_info"))
+				else
+					Notify(locale("body_checked"), locale("notify_type_info"))
+				end
+		
+				isInspetingBody = false
+				FreezeEntityPosition(veh, false)
+				Bridge.RemoveGlobalVehicle("bhd_mot_body_check")
+			end
+		end
+	end
+
 	Notify(locale("go_out_check"), locale("notify_type_info"))
 	isInspetingBody = true
 	FreezeEntityPosition(veh, true)
@@ -386,12 +422,16 @@ AddEventHandler("bhd_mot:client:engine", function (data)
 	if curentMOTStatus[veh].engine then
 		return
 	end
+	local bones = { "engine", "bonnet"}
+	if GetEntityBoneIndexByName(veh, "bonnet") <= 0 then
+		bones = { "engine", "bonnet", "windscreen"  }
+	end
 	Bridge.AddGlobalVehicle({
 		{
 			name = 'bhd_mot_body_check',
 			icon = 'fa-solid fa-clipboard-question',
 			label = locale('target_check_engine'),
-			bones = { "engine" },
+			bones = bones,
 			distance = Config.TargetDistance,
 			canInteract = function(entity, distance, coords, name)
 				return isInspetingBody 
